@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>INDEX</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .boton {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 30px;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+    .boton:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+    <video id="video" autoplay muted loop>
+    <source src="al/video.mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+  </video>
+  <div style="text-align: center;">
+    <h1>INDEX</h1>
+    <a href="https://ac77e57d-4582-4613-94e5-18b173ca9943-00-mwunozwtj97v.janeway.repl.co/" class="boton">On Va?</a>
+    <a href="https://8e2975ac-2e7b-4b86-9255-3576d4c65910-00-34pdii90lg69n.spock.repl.co/" class="boton">Jugar per aprendre</a>
+    <a href="https://0b039982-c0ab-4259-8cc2-16a28394588b-00-3lxj8az6u7fhs.worf.repl.co/" class="boton">Test reciclatje</a>
+  </div>
+</body>
+</html>
