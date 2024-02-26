@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Joc de Reciclatge - Test</title>
+  <style>
+    /* Estilos */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      color: #333;
+    }
+
+    #question-container {
+      width: 80%;
+      margin: 0 auto;
+      text-align: center;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    #options button {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+      color: #333;
+    }
+
+    #options button:hover {
+      background-color: #ddd;
+    }
+
+    #next-button {
+      padding: 15px 25px;
+      margin-top: 25px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 18px;
+    }
+
+    #next-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Joc de Reciclatge - Test</h1>
+  <div id="question-container">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+    <button id="next-button" onclick="nextQuestion()">Següent</button>
+    <p>Puntuació: <span id="score">0</span></p>
+  </div>
+  
+  <button onclick="redirectToExternalPage()" style="display:block;margin:20px auto;padding:10px 20px;background-color:#007bff;color:#fff;border:none;border-radius:5px;cursor:pointer;font-size:16px;">Tornar al index</button>
+
+  <script>
+    const questions = [
+      {
+        question: "Quin dels següents materials NO és reciclable?",
+        options: ["Paper", "Vidre", "Plàstic", "Tovalloletes usades"],
+        answer: "Tovalloletes usades"
+      },
+      {
+        question: "Quin tipus de material es recicla per fer llaunes d'alumini?",
+        options: ["Ferro", "Coure", "Alumini", "Plàstic"],
+        answer: "Alumini"
+      },
+      {
+        question: "Quina és la forma correcta de separar els residus per reciclar?",
+        options: ["Barrejar-ho tot", "Separar per colors", "Seguir les instruccions del veí", "Separar per tipus de material"],
+        answer: "Separar per tipus de material"
+      },
+      {
+        question: "Quin material NO es recicla a la brossa orgànica?",
+        options: ["Restes de fruita", "Pell de platan", "Paper brut", "Restes de menjar"],
+        answer: "Paper brut"
+      },
+      {
+        question: "Què s'entén per 'reciclatge'?",
+        options: ["Reutilitzar els residus", "Tirar els residus a la brossa", "Aprofitar els residus per a altres productes", "Enterrar els residus"],
+        answer: "Aprofitar els residus per a altres productes"
+      },
+      {
+        question: "Quin material és més difícil de reciclar degut a la seva durabilitat i resistència?",
+        options: ["Vidre", "Plàstic", "Cartó", "Papallona"],
+        answer: "Plàstic"
+      },
+      {
+        question: "Què s'ha de fer amb les piles gastades?",
+        options: ["Llançar-les a qualsevol contenidor", "Reciclar-les en punts de recollida específics", "Enterrar-les al jardí", "Guardar-les al calaix"],
+        answer: "Reciclar-les en punts de recollida específics"
+      },
+      {
+        question: "Quin material es recicla per a fer papers nous?",
+        options: ["Papel brut", "Papel impres", "Papel encerat", "Paper d'alumini"],
+        answer: "Papel brut"
+      },
+      {
+        question: "Com es denomina el procés de treure part de les deixalles per donar-los una segona vida?",
+        options: ["Reciclament", "Dipòsit", "Vitrificació", "Valorització"],
+        answer: "Reciclament"
+      },
+      {
+        question: "Què cal fer abans de reciclar les ampolles de plàstic?",
+        options: ["Rentar-les i triturar-les", "Embolicar-les en paper", "Tirar-les al contenidor sense més", "Reutilitzar-les com a gerro"],
+        answer: "Rentar-les i triturar-les"
+      },
+      {
+        question: "Què s'entén per 'reutilitzar' en relació al reciclatge?",
+        options: ["Llançar els residus", "Tornar a utilitzar els materials", "Enterrar els materials", "Canviar els materials"],
+        answer: "Tornar a utilitzar els materials"
+      },
+      {
+        question: "On es pot portar la roba i calçat usat per reciclar?",
+        options: ["A l'hort", "Al contenidor verd", "A contenidors específics o punts de recollida", "A la brossa comuna"],
+        answer: "A contenidors específics o punts de recollida"
+      },
+      {
+        question: "Quin dels següents materials NO es considera un material compostable?",
+        options: ["Fruita", "Paper", "Plàstic", "Restes de menjar"],
+        answer: "Plàstic"
+      },
+      {
+        question: "Quina és una manera d'ajudar al medi ambient en relació al reciclatge?",
+        options: ["No fer res", "Tirar-ho tot a qualsevol contenidor", "Reciclar correctament els residus", "Encendre llums innecessàries"],
+        answer: "Reciclar correctament els residus"
+      },
+      {
+        question: "Què cal fer abans de reciclar el paper?",
+        options: ["Pintar-hi", "Arrugar-lo", "Rasgar-lo", "Eliminar clips i altres elements no paper"],
+        answer: "Eliminar clips i altres elements no paper"
+      },
+      {
+        question: "Quina acció ajuda a reduir el consum de plàstics?",
+        options: ["Reutilitzar bosses de plàstic", "Utilitzar productes envasats", "Utilitzar estris de plàstic de forma massiva", "Rebrebé menys plàstics"],
+        answer: "Rebrebé menys plàstics"
+      },
+      {
+        question: "Quin dels següents residus NO és compostable?",
+        options: ["Restes de verdura", "Papallones de les flors", "Papallones de les flors", "Pell de fruita"],
+        answer: "Papallones de les flors"
+      },
+      {
+        question: "Com es denomina la transformació de la matèria orgànica en compost?",
+        options: ["Compostació", "Podrir-se", "Compostatge", "Compostar"],
+        answer: "Compostatge"
+      },
+      {
+        question: "Quin material es pot reciclar indefinidament sense perdre qualitat?",
+        options: ["Vidre", "Plàstic", "Ferro", "Cartó"],
+        answer: "Vidre"
+      },
+      {
+        question: "Què s'entén per 'residu zero'?",
+        options: ["No produir cap tipus de residu", "Reduir al màxim la generació de residus", "No reciclar res", "Enterrar tots els residus"],
+        answer: "Reduir al màxim la generació de residus"
+      },
+      {
+        question: "Què cal fer amb els medicaments caducats?",
+        options: ["Llançar-los a qualsevol contenidor", "Portar-los a la farmàcia o a punts de recollida especials", "Enterrar-los al jardí", "Guardar-los per si són necessaris"],
+        answer: "Portar-los a la farmàcia o a punts de recollida especials"
+      },
+      {
+        question: "Quin és el principal problema dels residus electrònics?",
+        options: ["Són fàcils de reciclar", "Contenen components perillosos", "No es poden reciclar", "Són molt petits"],
+        answer: "Contenen components perillosos"
+      },
+      {
+        question: "Quin material es recicla per fer nous fils i teixits?",
+        options: ["Fibra de vidre", "Polièster", "Nylon", "Cotó"],
+        answer: "Nylon"
+      },
+      {
+        question: "Què es pot fer per reduir la quantitat de residus plàstics en el medi ambient?",
+        options: ["Utilitzar bosses de plàstic sempre", "Comprar aliments amb molts envasos de plàstic", "Reduir l'ús de plàstics d'un sol ús", "Comprar productes empaquetats en plàstic sense importar la quantitat"],
+        answer: "Reduir l'ús de plàstics d'un sol ús"
+      },
+      {
+        question: "Quin material es pot reciclar per fabricar nous productes de paper sense fi?",
+        options: ["Paper brut", "Cartó", "Paper d'alumini", "Paper d'acer"],
+        answer: "Paper brut"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const questionElement = document.getElementById("question");
+      const optionsElement = document.getElementById("options");
+      const nextButton = document.getElementById("next-button");
+
+      const current = questions[currentQuestion];
+
+      questionElement.textContent = current.question;
+      optionsElement.innerHTML = "";
+
+      current.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.onclick = () => checkAnswer(option);
+        optionsElement.appendChild(button);
+      });
+
+      nextButton.disabled = true;
+    }
+
+    function checkAnswer(selected) {
+      const current = questions[currentQuestion];
+
+      if (selected === current.answer) {
+        alert("Resposta correcta!");
+        score++;
+        document.getElementById("score").innerText = score;
+      } else {
+        alert("Resposta incorrecta. La resposta correcta és: " + current.answer);
+      }
+
+      currentQuestion++;
+      const nextButton = document.getElementById("next-button");
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        alert("Fi del test. La teva puntuació és: " + score);
+        nextButton.innerText = "Comença de nou";
+        nextButton.onclick = restartGame;
+      }
+      nextButton.disabled = false;
+    }
+
+    function nextQuestion() {
+      showQuestion();
+    }
+
+    function restartGame() {
+      currentQuestion = 0;
+      score = 0;
+      document.getElementById("score").innerText = score;
+      showQuestion();
+    }
+    function redirectToExternalPage() {
+      window.location.href = 'https://ef106872-3a82-42e3-a731-3b3ec2b11dca-00-3qw6yp1hn61m9.janeway.repl.co/'; // Reemplaza 'https://www.ejemplo.com' por la URL a la que quieres redirigir
+    }
+    window.onload = showQuestion;
+  </script>
+</body>
+</html>
